@@ -56,7 +56,7 @@ module RackPassword
     end
 
     def valid_path?
-      @request.path =~ /xml|rss|json|attachments/ || @request.path =~ @options[:path_whitelist]
+      @request.path =~ /\.xml|\.rss|\.json/ || @request.path =~ @options[:path_whitelist]
     end
 
     def valid_code? code

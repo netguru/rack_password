@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = RackPassword::VERSION
   spec.authors       = ["Marcin Stecki"]
   spec.email         = ["marcin@netguru.pl"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Small rack middleware to block your site from unwanted vistors.}
+  spec.description   = %q{Small rack middleware to block your site from unwanted vistors. A little bit more convenient than basic auth - browser will ask you once for the password and then set a cookie to remember you - unlike the http basic auth it wont prompt you all the time.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

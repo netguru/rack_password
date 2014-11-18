@@ -1,6 +1,6 @@
 # RackPassword
 
-TODO: Write a gem description
+Small rack middleware to block your site from unwanted vistors. A little bit more convenient than basic auth - browser will ask you once for the password and then set a cookie to remember you - unlike the http basic auth it wont prompt you all the time.
 
 ## Installation
 
@@ -8,17 +8,16 @@ Add this line to your application's Gemfile:
 
     gem 'rack_password'
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rack_password
-
 ## Usage
 
-TODO: Write usage instructions here
+Let's assume you want to password protect your staging environemnt. Add something like this to `config/environments/staging.rb `
+
+
+```
+config.middleware.use RackPassword::Block, auth_codes: ['janusz']
+```
+
+From now on, your staging app should prompt for `janusz` password before you access it.
 
 ## Contributing
 
