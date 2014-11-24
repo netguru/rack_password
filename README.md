@@ -24,7 +24,7 @@ From now on, your staging app should prompt for `janusz` password before you acc
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/rack_password/fork )
+1. Fork it ( https://github.com/netguru/rack_password/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
