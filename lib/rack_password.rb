@@ -20,7 +20,8 @@ module RackPassword
 
 
       if request.post? and bv.valid_code?(request.params[@options[:code_param].to_s]) # If post method check :code_param value
-        domain = request.host == 'localhost' ? '' : ".#{request.host}"
+        domain = @options[:cookie_domain]
+        domain ||= request.host == 'localhost' ? '' : ".#{request.host}"
       [301, {'Location' => request.path, 'Set-Cookie' => "#{@options[:key]}=#{request.params[@options[:code_param].to_s]}; domain=#{domain}; expires=30-Dec-2039 23:59:59 GMT"}, ['']] # Redirect if code is valid
       else
         success_rack_response
