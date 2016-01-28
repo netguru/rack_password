@@ -27,11 +27,11 @@ describe RackPassword::BlockValidator do
       expect(bv.valid_path?).to be(true)
     end
 
-    it "be true when path looks like allowed path" do
+    it "be false when path contains xml/rss/json resource" do
       %w[janusz.xml lukasz.rss wykop.json].each do |asset|
         request = double "Request", path: asset
         bv = RackPassword::BlockValidator.new(options, request)
-        expect(bv.valid_path?).to be(true)
+        expect(bv.valid_path?).to be(false)
       end
     end
 
