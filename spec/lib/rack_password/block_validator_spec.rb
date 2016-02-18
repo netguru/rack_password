@@ -58,4 +58,19 @@ describe RackPassword::BlockValidator do
       expect(bv.valid_code?("incorrect_secret")).to be(false)
     end
   end
+
+  describe "valid user agent" do
+    let(:options) { Hash[ua_whitelist: ["some_ua/1.8"]] }
+    let(:request) { double "Request", user_agent: "some_ua/1.8" }
+
+    it "be true when user agent is whitelisted" do
+      bv = RackPassword::BlockValidator.new(options, request)
+      expect(bv.valid_ua?).to be(true)
+    end
+
+    it "be false when user agent is not whitelisted" do
+      bv = RackPassword::BlockValidator.new({}, request)
+      expect(bv.valid_ua?).to be(false)
+    end
+  end
 end

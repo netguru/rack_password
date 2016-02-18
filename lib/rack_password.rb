@@ -48,7 +48,7 @@ module RackPassword
     end
 
     def valid?
-      valid_path? || valid_code?(@request.cookies[@options[:key].to_s]) || valid_ip?
+      valid_path? || valid_code?(@request.cookies[@options[:key].to_s]) || valid_ip? || valid_ua?
     end
 
     def valid_ip?
@@ -58,6 +58,11 @@ module RackPassword
 
     def valid_path?
       !!(@request.path =~ @options[:path_whitelist])
+    end
+
+    def valid_ua?
+      return false if @options[:ua_whitelist].nil?
+      @options[:ua_whitelist].include? @request.user_agent
     end
 
     def valid_code? code
