@@ -58,4 +58,27 @@ describe RackPassword::BlockValidator do
       expect(bv.valid_code?("incorrect_secret")).to be(false)
     end
   end
+
+  describe "proc control" do
+    context 'with proc allowing to pass' do
+      let(:options) { Hash[auth_codes: ["secret"], key: :staging_auth, custom_rule: Proc.new { true } ] }
+      let(:request) { double "Request" }
+
+      it "be true when proc evaluates to true" do
+        bv = RackPassword::BlockValidator.new(options, request)
+        expect(bv.custom_rule?).to be(true)
+      end
+    end
+
+    context 'with proc set to deny-all' do
+      let(:options) { Hash[auth_codes: ["secret"], key: :staging_auth, custom_rule: Proc.new { false } ] }
+      let(:request) { double "Request", path: '/', ip: "127.0.0.1", cookies: { } }
+
+      it "be true when proc evaluates to true" do
+        bv = RackPassword::BlockValidator.new(options, request)
+        expect(bv.custom_rule?).to be(false)
+        expect(bv.valid?).to be(false)
+      end
+    end
+  end
 end
