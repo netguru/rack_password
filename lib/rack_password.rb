@@ -67,7 +67,7 @@ module RackPassword
 
     def custom_rule?
       return false if @options[:custom_rule].nil?
-      !!@options[:custom_rule].call
+      !!@options[:custom_rule].call(@request)
     end
   end
 
