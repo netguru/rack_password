@@ -25,7 +25,7 @@ From now on, your staging app should prompt for `janusz` password before you acc
 You can also provide custom validator:
 
 ```
-config.middleware.use RackPassword::Block, auth_codes: ['janusz'], custom_rule: Proc.new { |request| request.env['HTTP_USER_AGENT'].include?('facebook') }
+config.middleware.use RackPassword::Block, auth_codes: ['janusz'], custom_rule: proc { |request| request.env['HTTP_USER_AGENT'].include?('facebook') }
 ```
 
 ## Contributing
