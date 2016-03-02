@@ -22,6 +22,12 @@ config.middleware.use RackPassword::Block, auth_codes: ['janusz']
 
 From now on, your staging app should prompt for `janusz` password before you access it.
 
+You can also provide custom validator:
+
+```
+config.middleware.use RackPassword::Block, auth_codes: ['janusz'], custom_rule: proc { |request| request.env['HTTP_USER_AGENT'].include?('facebook') }
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/netguru/rack_password/fork )
