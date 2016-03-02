@@ -48,7 +48,7 @@ module RackPassword
     end
 
     def valid?
-      valid_path? || valid_code?(@request.cookies[@options[:key].to_s]) || valid_ip? || custom_rule?
+      valid_path? || valid_code?(@request.cookies[@options[:key].to_s]) || valid_ip? || valid_custom_rule?
     end
 
     def valid_ip?
@@ -65,7 +65,7 @@ module RackPassword
       @options[:auth_codes].include? code
     end
 
-    def custom_rule?
+    def valid_custom_rule?
       return false if @options[:custom_rule].nil?
       !!@options[:custom_rule].call(@request)
     end
