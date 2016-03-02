@@ -62,7 +62,7 @@ describe RackPassword::BlockValidator do
   describe "proc control" do
     context "with proc allowing to pass" do
       let(:options) { Hash[auth_codes: ["secret"], key: :staging_auth, custom_rule: proc { true } ] }
-      let(:request) { double "Request" }
+      let(:request) { double "Request", path: "/", ip: "127.0.0.1", cookies: { } }
 
       it "is true when proc evaluates to true" do
         bv = RackPassword::BlockValidator.new(options, request)
@@ -70,8 +70,18 @@ describe RackPassword::BlockValidator do
       end
 
       it "is true when proc returns true" do
-        bv = RackPassword::BlockValidator.new({custom_rule: proc { return true }}, request)
+        bv = RackPassword::BlockValidator.new({custom_rule: proc { true }}, request)
         expect(bv.valid_custom_rule?).to be(true)
+      end
+
+      it 'is true when other rules return false' do
+        bv = RackPassword::BlockValidator.new(options, request)
+        expect(bv.valid_path?).to be(false)
+        expect(bv.valid_code?('')).to be(false)
+        expect(bv.valid_ip?).to be(false)
+
+        expect(bv.valid_custom_rule?).to be(true)
+        expect(bv.valid?).to be(true)
       end
     end
 
@@ -86,8 +96,8 @@ describe RackPassword::BlockValidator do
       end
 
       it "is false when proc returns false" do
-        bv = RackPassword::BlockValidator.new({custom_rule: proc { return false }}, request)
-        expect(bv.valid_custom_rule?).to be(true)
+        bv = RackPassword::BlockValidator.new({custom_rule: proc { false }}, request)
+        expect(bv.valid_custom_rule?).to be(false)
       end
     end
   end
