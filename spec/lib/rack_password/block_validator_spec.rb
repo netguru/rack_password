@@ -74,7 +74,7 @@ describe RackPassword::BlockValidator do
         expect(bv.valid_custom_rule?).to be(true)
       end
 
-      it 'is true when other rules return false' do
+      it "is true when other rules return false" do
         bv = RackPassword::BlockValidator.new(options, request)
         expect(bv.valid_path?).to be(false)
         expect(bv.valid_code?('')).to be(false)
