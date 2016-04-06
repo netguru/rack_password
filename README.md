@@ -28,7 +28,7 @@ You can also provide custom validator:
 config.middleware.use RackPassword::Block, auth_codes: ['janusz'], custom_rule: proc { |request| request.env['HTTP_USER_AGENT'].include?('facebook') }
 ```
 ## Common problems
-- If you use server ip address instead of domain name to visit your webpage based on rails app, rack_password will not accept any password, including the correct one.
+- If you use server ip address instead of domain name to visit your webpage using chrome, rack_password will not accept any password, including the correct one.
 
 ## Contributing
 
