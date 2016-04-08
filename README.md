@@ -28,7 +28,7 @@ You can also provide custom validator:
 config.middleware.use RackPassword::Block, auth_codes: ['janusz'], custom_rule: proc { |request| request.env['HTTP_USER_AGENT'].include?('facebook') }
 ```
 ## Common problems
-- If you use server ip address instead of domain name to visit your webpage using chrome, rack_password will not accept any password, including the correct one. As a workaround, please use wildcard DNS service, such as [xip.io](http://xip.io/) 
+- If you use server ip address instead of domain name to visit your webpage using chrome, rack_password will not accept any password, including the correct one. As a workaround, please use wildcard DNS service, such as [xip.io](http://xip.io/) or set `cookie_domain` option to match server IP address.
 
 ## Contributing
 
