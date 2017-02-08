@@ -22,11 +22,32 @@ config.middleware.use RackPassword::Block, auth_codes: ['janusz']
 
 From now on, your staging app should prompt for `janusz` password before you access it.
 
-You can also provide custom validator:
+## Options
+
+You can also provide additional authentication rules in the options hash:
+
+* `ip_whitelist` specifies allowed visitors IP addresses
+* `path_whitelist` specifies allowed request path, it also works with regexp
+* `custom_rule` provides custom validator
 
 ```
-config.middleware.use RackPassword::Block, auth_codes: ['janusz'], custom_rule: proc { |request| request.env['HTTP_USER_AGENT'].include?('facebook') }
+config.middleware.use RackPassword::Block,
+    auth_codes: ['janusz'],
+    ip_whitelist: ['82.43.112.65', '65.33.23.120'],
+    path_whitelist: /\A\/(users|invitations)/,
+    custom_rule: proc { |request| request.env['HTTP_USER_AGENT'].include?('facebook') }
 ```
+
+The access is granted if at least one authentication rule is fulfilled (that includes `auth_codes` rule).
+
+You can also provide `cookie_domain` option to override cookie domain. This way you can have one cookie shared across all subdomains.
+
+```
+config.middleware.use RackPassword::Block, auth_codes: ['janusz'], cookie_domain: '.somedomain.com'
+```
+
+The above code will make the authorization cookie shared across all `somedomain.com` subdomains, e.g. `a.somedomain.com` and `b.somedomain.com`. 
+
 ## Common problems
 - If you use server ip address instead of domain name to visit your webpage using chrome, rack_password will not accept any password, including the correct one. As a workaround, please use wildcard DNS service, such as [xip.io](http://xip.io/) or set `cookie_domain` option to match server IP address.
 
