@@ -36,6 +36,12 @@ module RackPassword
 
     def read_success_view
       @success_view ||= File.open(File.join(File.dirname(__FILE__), "views", "block_middleware.html")).read
+      fill_in_application_name(@success_view)
+    end
+
+    def fill_in_application_name(view)
+      app_name = defined?(Rails) ? Rails.application.class.parent_name : ""
+      view.sub('__App_Name__', app_name)
     end
   end
 
