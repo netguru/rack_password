@@ -4,6 +4,7 @@
 [![](http://img.shields.io/travis/netguru/rack_password.svg?style=flat-square)](ps://travis-ci.org/netguru/rack_password)
 
 Small rack middleware to block your site from unwanted vistors. A little bit more convenient than basic auth - browser will ask you once for the password and then set a cookie to remember you - unlike the http basic auth it wont prompt you all the time.
+If used as RoR middleware, it will show application name above the sign in form. 
 
 ## Installation
 
