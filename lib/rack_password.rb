@@ -1,4 +1,5 @@
-require "rack_password/version"
+require 'rack_password/version'
+require 'rack'
 
 module RackPassword
 
