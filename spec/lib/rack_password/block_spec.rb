@@ -52,6 +52,22 @@ module RackPassword
         it 'returns 301 status code' do
           expect(block.call(request)[0]).to eq(301)
         end
+
+        context 'and when "force_cookie_root_path" not used' do
+          it 'does not set root path for the cookie' do
+            expect(block.call(request)[1]['Set-Cookie']).to_not include('path=/')
+          end
+        end
+
+        context 'and when "force_cookie_root_path" used' do
+          let(:block) do
+            Block.new('app', { auth_codes: ['Janusz'], force_cookie_root_path: true })
+          end
+
+          it 'sets root path for the cookie' do
+            expect(block.call(request)[1]['Set-Cookie']).to include('path=/')
+          end
+        end
       end
 
       context 'when requests contain invalid auth code' do
