@@ -47,7 +47,9 @@ You can also provide `cookie_domain` option to override cookie domain. This way 
 config.middleware.use RackPassword::Block, auth_codes: ['janusz'], cookie_domain: '.somedomain.com'
 ```
 
-The above code will make the authorization cookie shared across all `somedomain.com` subdomains, e.g. `a.somedomain.com` and `b.somedomain.com`. 
+The above code will make the authorization cookie shared across all `somedomain.com` subdomains, e.g. `a.somedomain.com` and `b.somedomain.com`.
+
+To make sure the cookies are used for all the pages from selected (sub)domains, use `force_cookie_root_path` option - it helps to reduce the risk of unexpected behaviour for some browsers.
 
 ## Common problems
 - If you use server ip address instead of domain name to visit your webpage using chrome, rack_password will not accept any password, including the correct one. As a workaround, please use wildcard DNS service, such as [xip.io](http://xip.io/) or set `cookie_domain` option to match server IP address.
