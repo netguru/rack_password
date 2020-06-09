@@ -22,8 +22,7 @@ module RackPassword
       if request.post? && bv.valid_code?(code)
         domain = @options[:cookie_domain]
         domain ||= request.host == 'localhost' ? '' : ".#{request.host}"
-
-        [301, { 'Location' => request.path, 'Set-Cookie' => cookie_params(domain, code) }, ['']]
+        [301, { 'Location' => request.url, 'Set-Cookie' => cookie_params(domain, code) }, ['']]
       else
         success_rack_response
       end
