@@ -48,8 +48,16 @@ module RackPassword
     end
 
     def fill_in_application_name(view)
-      app_name = defined?(Rails) ? Rails.application.class.parent_name : ''
+      app_name = defined?(Rails) ? application_name : ''
       view.sub('__App_Name__', app_name)
+    end
+
+    def application_name
+      if Rails::VERSION::MAJOR >= 6
+        Rails.application.class.module_parent_name
+      else
+        Rails.application.class.parent_name
+      end
     end
 
     def success_rack_response
